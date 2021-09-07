@@ -264,8 +264,9 @@ constexpr auto bishop_masks = calculate_bishop_masks();
 constexpr auto rook_masks = generate_rook_masks();
 constexpr auto king_masks = calculate_king_masks();
 
-std::array<std::uint64_t, 88772> generate_magic_moves() {
-    std::array<std::uint64_t, 88772> result = {};
+std::array<std::uint64_t, 88772> magic_moves;
+
+bool generate_magic_moves(std::array<std::uint64_t, 88772>& result) {
 
     for (int i = 0; i < 64; ++i) {
         assert(bishop_masks[i]);
@@ -292,11 +293,11 @@ std::array<std::uint64_t, 88772> generate_magic_moves() {
         } while ((perm = permute(rook_masks[i], perm)));
     }
 
-    return result;
+    return true;
 }
 
-const auto magic_moves = generate_magic_moves();
 
+bool initialized_magic_moves = generate_magic_moves(magic_moves);
 Bitboard knight_moves(const Square sq) {
     return knight_masks[static_cast<int>(sq)];
 }
