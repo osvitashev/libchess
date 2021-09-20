@@ -15,7 +15,7 @@ class BitboardIterator {
     }
 
     [[nodiscard]] constexpr Square operator*() const noexcept {
-        return static_cast<Square>(__builtin_ctzll(data_));
+        return static_cast<Square>(std::countr_zero(data_));
     }
 
     constexpr BitboardIterator operator++() noexcept {
@@ -51,7 +51,7 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr int count() const noexcept {
-        return __builtin_popcountll(mask_);
+        return std::popcount(mask_);
     }
 
     [[nodiscard]] constexpr Bitboard adjacent() const noexcept {
@@ -123,7 +123,7 @@ class Bitboard {
 
     [[nodiscard]] constexpr Square lsbll() const noexcept {
         assert(mask_);
-        return __builtin_ctzll(mask_);
+        return std::countr_zero(mask_);
     }
 
     [[nodiscard]] constexpr std::uint64_t value() const noexcept {
